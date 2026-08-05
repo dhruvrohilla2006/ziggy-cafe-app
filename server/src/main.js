@@ -7,7 +7,14 @@ const env = require('./config/env.js');
 const connectDB = require('./config/db.js');
 const cookieParser = require('cookie-parser');
 const AuthRoutes = require('./route/auth.route.js');
+const cors = require('cors');
 
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+);
 app.use(
   express.json({
     strict: true,

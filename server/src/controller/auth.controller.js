@@ -2,18 +2,46 @@ const { fileUploader } = require('../config/cloudinary.js');
 const fs = require('node:fs/promises');
 const AppError = require('../utils/AppError.js');
 const User = require('../model/user.model.js');
-const { hashPassword } = require('../utils/Hashing.js');
+const { hashPassword, comparePassword } = require('../utils/Hashing.js');
+const { genToken } = require('../utils/token.js');
 
 const LoginController = async (request, response) => {
-  try {
-    const { email, password } = request.body;
-  } catch (err) {}
+  const { email, password } = request.body;
+
+  const existingUser = await User.findOne({ email });
+
+  if (!existingUser) {
+    throw new AppError("User With this Email Doesn't Exist", 404);
+  }
+
+  if (!comparePassword(password, existingUser.password)) {
+    throw new AppError('Wrong Credentials', 401);
+  }
+  const token = await genToken({
+    name: existingUser.name,
+    id: existingUser._id,
+    role: existingUser.role,
+  });
+
+  response.cookie('token', token, {
+    httpOnly: false,
+    maxAge: 1000 * 60 * 60 * 24,
+    secure: false,
+    sameSite: 'lax',
+  });
+
+  response.status(200).json({
+    success: true,
+    message: 'User Login SuccessFully',
+  });
 };
 const RegisterController = async (request, response) => {
   const { name, email, password } = request.body;
   const file = request.file;
 
-  const existingUser = await User.findOne({ email });
+  const existingUser = await User.findOne({
+    email,
+  });
   if (existingUser) {
     await fs.unlink(file.path, (err) => {
       if (err) throw err;
@@ -40,16 +68,47 @@ const RegisterController = async (request, response) => {
 
   await NewUser.save();
 
+  const token = await genToken({
+    name: NewUser.name,
+    id: NewUser._id,
+    role: NewUser.role,
+  });
+
+  response.cookie('token', token, {
+    httpOnly: false,
+    maxAge: 1000 * 60 * 60 * 24,
+    secure: false,
+    sameSite: 'lax',
+  });
+
   return response.status(201).json({
     success: true,
     data: {
       name: NewUser.name,
       id: NewUser._id,
-      profilepic:NewUser.profilepic
+      profilepic: NewUser.profilepic,
     },
-    message:"User Created Successfully"
+    message: 'User Created Successfully',
   });
 };
-const CheckController = async (request, response) => {};
+const CheckController = async (request, response) => {
+  const token = request.token || '';
 
-module.exports = { LoginController, RegisterController, CheckController };
+  if (!token) {
+    throw new AppError('Token Not Found', 400);
+  }
+
+  response.status(200).json({
+    success: true,
+    message: 'User Authenticated Successfully',
+    user: {
+      ...token,
+    },
+  });
+};
+
+module.exports = {
+  LoginController,
+  RegisterController,
+  CheckController,
+};

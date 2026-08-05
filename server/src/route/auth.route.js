@@ -5,6 +5,7 @@ const {
   CheckController,
 } = require('../controller/auth.controller.js');
 const validate = require('../middleware/validate.middleware.js');
+const tokenValidate = require('../middleware/token.middleware.js')
 const {
   loginSchema,
   registerSchema,
@@ -19,6 +20,6 @@ router.post(
   validate(registerSchema),
   RegisterController
 );
-router.post('/check', CheckController);
+router.get('/check', tokenValidate,  CheckController);
 
 module.exports = router;
