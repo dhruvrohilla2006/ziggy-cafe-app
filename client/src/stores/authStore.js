@@ -3,6 +3,8 @@ import toast from "react-hot-toast";
 import axiosInstance from "../utils/axios";
 
 const authStore = create((set, get) => ({
+  loading: false,
+  loadingMsg: "Loading Data",
   authRole: null,
   authenticated: false,
   user: {
@@ -12,50 +14,77 @@ const authStore = create((set, get) => ({
   },
   login: async (payload) => {
     try {
+      // set({ loading: true, loadingMsg: "Logging User" });
       await axiosInstance.post("/auth/login", payload);
       const { data } = await axiosInstance.get("/auth/check");
 
       if (data.success) {
-        set((state) => ({
+        set({
           authRole: data.user.role,
           user: data.user,
-          authenticated: state.authenticated ? false : true,
-        }));
+          authenticated: true,
+        });
+
+        // toast.success("Loging Successfull");
       }
     } catch (err) {
+      // set({ loading: false, loadingMsg: "Logging User" });
       console.error("Found a Error\t", err);
       toast.error("Unexpected Error");
     } finally {
       toast.success("Login Successful");
+      // set({ loading: false, loadingMsg: "Logging User" });
     }
   },
-  logout: async () => {},
+  logout: async () => {
+    try {
+      // set({ loading: true, loadingMsg: "Logging Out User" });
+      const { data } = await axiosInstance.get("/auth/logout");
+      console.log(data);
+      set({
+        authRole: null,
+        authenticated: false,
+        user: {
+          id: 0,
+          name: "",
+          role: "",
+        },
+      });
+    } catch (err) {
+      console.error(err);
+      toast.error("Unexpected Error");
+      // set({ loading: false, loadingMsg: "Logging Out User" });
+    } finally {
+      // set({ loading: false, loadingMsg: "Logging Out User" });
+      toast.success("Log Out Succesfuly");
+    }
+  },
   check: async () => {
     try {
       // await axiosInstance.post("/auth/login", payload);
       const { data } = await axiosInstance.get("/auth/check");
 
       if (data.success) {
-        set((state) => ({
+        set({
           authRole: data.user.role,
           user: data.user,
-          authenticated: state.authenticated ? false : true,
-        }));
+          authenticated: true,
+        });
       }
     } catch (err) {
       console.error("Found a Error\t", err);
       toast.error("Unexpected Error");
     } finally {
-      toast.success("Login Successful");
+      // toast.success("Login Successful");
     }
   },
-  register: async () => {
-    try {
-    } catch (err) {
-      console.error("Found a Error\t", err);
-    } finally {
-    }
-  },
+  // register: async () => {
+  //   try {
+  //   } catch (err) {
+  //     console.error("Found a Error\t", err);
+  //   } finally {
+  //   }
+  // },
 }));
 
 export default authStore;

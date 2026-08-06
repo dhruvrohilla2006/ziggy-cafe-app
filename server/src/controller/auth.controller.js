@@ -5,6 +5,7 @@ const User = require('../model/user.model.js');
 const { hashPassword, comparePassword } = require('../utils/Hashing.js');
 const { genToken } = require('../utils/token.js');
 
+
 const LoginController = async (request, response) => {
   const { email, password } = request.body;
 
@@ -106,9 +107,17 @@ const CheckController = async (request, response) => {
     },
   });
 };
+const LogoutController = async (request, response) => {
+  response.clearCookie('token');
+  response.status(200).json({
+    success: true,
+    message: 'Logout Sucessful',
+  });
+};
 
 module.exports = {
   LoginController,
   RegisterController,
   CheckController,
+  LogoutController,
 };

@@ -8,6 +8,7 @@ import UserDashboard from "../pages/user/Dashboard";
 import GuestRoute from "../protector/GuestRoute";
 import AdminDashboard from "../pages/admin/Dashboard";
 import UserLayout from "../layout/UserLayout";
+import AdminLayout from "../layout/AdminLayout";
 
 export default function AppRouter() {
   return (
@@ -41,7 +42,9 @@ export default function AppRouter() {
               </Route>
             </Route>
             <Route path="/admin" element={<RoleRoute role="admin" />}>
-              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route element={<AdminLayout />}>
+                <Route path="dashboard" element={<AdminDashboard />} />
+              </Route>
             </Route>
           </Route>
         </Router>

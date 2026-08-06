@@ -1,10 +1,19 @@
 import AppRouter from "./AppRouter";
-import AuthStore from "../stores/authStore";
-import { useEffect } from "react";
+// import AuthStore from "../stores/authStore";
+// import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 export default function App() {
-  const { check, authenticated } = AuthStore();
+  // const { loading } = AuthStore();
 
- 
+  // useEffect(() => {
+  //   if (loading) toast.loading("Loading");
+  // }, [loading]);
 
-  return <AppRouter />;
+  return (
+    <>
+      {" "}
+      <Toaster position="top-right" />
+      <AppRouter />
+    </>
+  );
 }

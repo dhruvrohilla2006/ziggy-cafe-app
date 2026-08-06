@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { userSidebar } from "../config/userSidebar";
-import { adminSidebar } from "../config/adminSidebar";
+import userSidebar from "../lib/userSidebar";
+import adminSidebar from "../lib/adminSidebar";
 
 const sidebars = {
   user: userSidebar,

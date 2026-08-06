@@ -1,6 +1,6 @@
 import { LayoutDashboard, Users, Settings } from "lucide-react";
 
-export const adminSidebar = [
+const adminSidebar = [
   {
     section: "Admin",
     links: [
@@ -25,3 +25,5 @@ export const adminSidebar = [
     ],
   },
 ];
+
+export default adminSidebar;

@@ -3,14 +3,13 @@ import {
   Box,
   Building2,
   ArrowLeftRight,
-  FileText,
   User,
   Users,
   History,
   Settings,
 } from "lucide-react";
 
-export const sidebarConfig = [
+const sidebarConfig = [
   {
     section: "Overview",
     links: [
@@ -75,3 +74,5 @@ export const sidebarConfig = [
     ],
   },
 ];
+
+export default sidebarConfig;

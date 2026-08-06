@@ -1,20 +1,29 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router";
-import { ChevronLeft, ChevronRight, Menu, User, X } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Menu,
+  SquareArrowRightExit,
+  User,
+  X,
+} from "lucide-react";
 import clsx from "clsx";
-import { sidebarConfig } from "../lib/userSidebar";
+// import { sidebarConfig } from "../lib/userSidebar";
 import AuthStore from "../stores/authStore";
+import useSidebarStore from "../stores/sidebarStore";
 
 export default function Sidebar() {
   const location = useLocation();
   const pathnameArray = location.pathname.split("/");
   const pathname = pathnameArray[pathnameArray.length - 1];
   console.log(pathname);
-  const { user } = AuthStore();
+  const { user, logout } = AuthStore();
+  const { links } = useSidebarStore();
 
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
- 
+
   // Close mobile drawer when route changes
   useEffect(() => {
     setMobileOpen(false);
@@ -74,7 +83,7 @@ export default function Sidebar() {
 
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto p-2">
-          {sidebarConfig.map((group) => (
+          {links.map((group) => (
             <div key={group.section} className="mb-3">
               {!collapsed && (
                 <p className="text-[11px] uppercase tracking-wide text-gray-400 px-2 py-1">
@@ -104,6 +113,17 @@ export default function Sidebar() {
               })}
             </div>
           ))}
+          <div>
+            <span
+              onClick={() => logout()}
+              className={
+                "flex items-center gap-3 px-2.5 py-2 rounded-md text-sm my-0.5  hover:bg-gray-100 bg-gray-50 hover:border-gray-200  text-gray-800 font-medium"
+              }
+            >
+              <SquareArrowRightExit color="#880d1e" />
+              <span>Logout</span>
+            </span>
+          </div>
         </nav>
       </aside>
     </>

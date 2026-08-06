@@ -3,9 +3,10 @@ const {
   LoginController,
   RegisterController,
   CheckController,
+  LogoutController,
 } = require('../controller/auth.controller.js');
 const validate = require('../middleware/validate.middleware.js');
-const tokenValidate = require('../middleware/token.middleware.js')
+const tokenValidate = require('../middleware/token.middleware.js');
 const {
   loginSchema,
   registerSchema,
@@ -20,6 +21,7 @@ router.post(
   validate(registerSchema),
   RegisterController
 );
-router.get('/check', tokenValidate,  CheckController);
+router.get('/check', tokenValidate, CheckController);
+router.get('/logout', tokenValidate, LogoutController);
 
 module.exports = router;

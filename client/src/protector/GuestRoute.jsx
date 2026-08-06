@@ -2,12 +2,16 @@ import { Navigate, Outlet } from "react-router";
 import useAuthStore from "../stores/authStore.js";
 import Spinner from "../component/Spinner.jsx";
 import { useEffect } from "react";
+import sideBarStore from "../stores/sidebarStore.js";
+
 export default function GuestRoute() {
+  const { setRole } = sideBarStore();
   const { loading, authenticated, user, check } = useAuthStore();
 
   useEffect(() => {
     check();
-  }, [check]);
+    setRole(user.role);
+  }, [check, user.role, setRole]);
 
   if (loading) return <Spinner />;
 
