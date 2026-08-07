@@ -8,6 +8,7 @@ const connectDB = require('./config/db.js');
 const cookieParser = require('cookie-parser');
 const AuthRoutes = require('./route/auth.route.js');
 const cors = require('cors');
+const FoodRouter = require('./route/food.route.js');
 
 app.use(
   cors({
@@ -15,14 +16,12 @@ app.use(
     credentials: true,
   })
 );
-app.use(
-  express.json({
-    strict: true,
-  })
-);
+
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use('/auth', AuthRoutes);
+app.use('/food', FoodRouter);
 
 app.get('/', async (req, res) => {
   res.status(200).json({

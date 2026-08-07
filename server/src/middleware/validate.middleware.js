@@ -1,6 +1,7 @@
 const validate = (schema) => {
   return (req, res, next) => {
     try {
+      console.log(req.body);
       const result = schema.safeParse(req.body);
       console.log(result);
       if (!result.success) {
