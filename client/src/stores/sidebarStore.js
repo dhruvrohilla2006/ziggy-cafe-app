@@ -14,11 +14,15 @@ const useSidebarStore = create((set) => ({
 
   links: sidebars.user,
 
-  setRole: (role) =>
+  setRole: (role) => {
+    // console.log(sidebars);
+    // console.log("Sidebar Role\t" + role);
+    // console.log("Sidebar Links\t" + Object.keys(sidebars[role]));
     set({
       role,
       links: sidebars[role] || [],
-    }),
+    });
+  },
 
   toggleSidebar: () =>
     set((state) => ({

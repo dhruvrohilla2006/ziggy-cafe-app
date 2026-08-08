@@ -18,4 +18,11 @@ const fileUploader = async (filePath, folderPath) => {
   }
 };
 
-module.exports = { fileUploader };
+const fileDeletion = async (public_id) => {
+  return await cloudinary.uploader.destroy(public_id, {
+    invalidate: true,
+    resource_type: 'image',
+  });
+};
+
+module.exports = { fileUploader, fileDeletion };

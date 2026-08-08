@@ -4,7 +4,7 @@ const tokenValidate = async (request, response, next) => {
 
   if (!token) {
     return response.status(200).json({
-      success: true,
+      success: false,
       message: 'Token Not Found',
     });
   }

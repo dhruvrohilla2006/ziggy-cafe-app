@@ -9,7 +9,7 @@ import {
   Settings,
 } from "lucide-react";
 
-const sidebarConfig = [
+const userSidebar = [
   {
     section: "Overview",
     links: [
@@ -75,4 +75,4 @@ const sidebarConfig = [
   },
 ];
 
-export default sidebarConfig;
+export default userSidebar;

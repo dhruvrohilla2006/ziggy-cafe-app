@@ -1,4 +1,11 @@
-import { LayoutDashboard, Users, Settings } from "lucide-react";
+import {
+  LayoutDashboard,
+  Users,
+  Settings,
+  Hamburger,
+  Plus,
+  SquarePen,
+} from "lucide-react";
 
 const adminSidebar = [
   {
@@ -7,19 +14,37 @@ const adminSidebar = [
       {
         key: "dashboard",
         label: "Dashboard",
-        path: "/admin/dashboard",
+        href: "/admin/dashboard",
         icon: LayoutDashboard,
       },
       {
-        key: "users",
-        label: "Users",
-        path: "/admin/users",
+        key: "orders",
+        label: "Orders",
+        href: "/admin/orders",
         icon: Users,
+      },
+      {
+        key: "all-menu",
+        label: "All Menu",
+        href: "/admin/menu/all",
+        icon: Hamburger,
+      },
+      {
+        key: "new-menu",
+        label: "Upload New Menu",
+        href: "/admin/menu/new",
+        icon: Plus,
+      },
+      {
+        key: "edit-menu",
+        label: "Update Menu",
+        href: "/admin/menu/update",
+        icon: SquarePen,
       },
       {
         key: "settings",
         label: "Settings",
-        path: "/admin/settings",
+        href: "/admin/settings",
         icon: Settings,
       },
     ],

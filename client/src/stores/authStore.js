@@ -2,7 +2,7 @@ import { create } from "zustand";
 import toast from "react-hot-toast";
 import axiosInstance from "../utils/axios";
 
-const authStore = create((set, get) => ({
+const authStore = create((set) => ({
   loading: false,
   loadingMsg: "Loading Data",
   authRole: null,
@@ -66,14 +66,14 @@ const authStore = create((set, get) => ({
 
       if (data.success) {
         set({
-          authRole: data.user.role,
+          authRole: data?.user?.role,
           user: data.user,
           authenticated: true,
         });
       }
     } catch (err) {
       console.error("Found a Error\t", err);
-      toast.error("Unexpected Error");
+      // toast.error("Unexpected Error");
     } finally {
       // toast.success("Login Successful");
     }

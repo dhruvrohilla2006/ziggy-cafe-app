@@ -9,6 +9,9 @@ import GuestRoute from "../protector/GuestRoute";
 import AdminDashboard from "../pages/admin/Dashboard";
 import UserLayout from "../layout/UserLayout";
 import AdminLayout from "../layout/AdminLayout";
+import Profile from "../pages/user/Profile";
+import ExploreMenu from "../pages/user/ExploreMenu";
+import CartPage from "../pages/user/Cart";
 
 export default function AppRouter() {
   return (
@@ -30,20 +33,25 @@ export default function AppRouter() {
                   path="order-history"
                   element={<h1>User Order Histroy</h1>}
                 />
-                <Route path="cart" element={<h1>User Cart</h1>} />
-                <Route path="explore-menu" element={<h1>Explore Menu</h1>} />
+                <Route path="cart" element={<CartPage />} />
+                <Route path="explore-menu" element={<ExploreMenu />} />
                 <Route path="address" element={<h1>User Address</h1>} />
                 <Route
                   path="payment-method"
                   element={<h1>User Payment Method</h1>}
                 />
                 <Route path="setting" element={<h1>User Setting</h1>} />
-                <Route path="profile" element={<h1>User Profile</h1>} />
+                <Route path="profile" element={<Profile />} />
               </Route>
             </Route>
             <Route path="/admin" element={<RoleRoute role="admin" />}>
               <Route element={<AdminLayout />}>
                 <Route path="dashboard" element={<AdminDashboard />} />
+                <Route path="menu/new" element={<h1>Upload New Menus</h1>} />
+                <Route path="menu/all" element={<h1>All Menus</h1>} />
+                <Route path="menu/update" element={<h1>Update Menu</h1>} />
+                <Route path="orders" element={<h1>Orders </h1>} />
+                <Route path="settings" element={<h1>settings</h1>} />
               </Route>
             </Route>
           </Route>

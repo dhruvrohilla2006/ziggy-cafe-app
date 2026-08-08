@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 
+const imageSchema = new mongoose.Schema({
+  url: String,
+  public_id: String,
+});
+
 const foodSchema = new mongoose.Schema(
   {
     name: {
@@ -29,7 +34,7 @@ const foodSchema = new mongoose.Schema(
       default: false,
     },
     images: {
-      type: [String],
+      type: [imageSchema],
       default: [],
     },
     category: {
@@ -78,9 +83,16 @@ const foodSchema = new mongoose.Schema(
 foodSchema.virtual('formattedPrice').get(function () {
   return `₹${this.price}`;
 });
-
-foodSchema.index({ category: 1 });
-foodSchema.index({ foodType: 1 });
+foodSchema.virtual('formattedDate').get(function () {
+  let Fdate = new Date(this.createdAt);
+  return {
+    date: Fdate.toLocaleDateString(),
+    time: Fdate.toLocaleTimeString(),
+    day: Fdate.toLocaleDateString('en-US', {
+      weekday: 'long',
+    }),
+  };
+});
 
 const FoodModel = mongoose.model('Food', foodSchema);
 
