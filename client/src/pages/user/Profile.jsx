@@ -12,6 +12,7 @@ import {
   X,
   LogOut,
 } from "lucide-react";
+import authStore from "../../stores/authStore";
 
 // Temporary mock data — replace with real API call later
 const MOCK_USER = {
@@ -23,7 +24,8 @@ const MOCK_USER = {
 };
 
 const Profile = () => {
-  const [user, setUser] = useState(MOCK_USER);
+  // const [user, setUser] = useState(MOCK_USER);
+  const { user } = authStore();
 
   const [isEditing, setIsEditing] = useState(false);
   const [nameDraft, setNameDraft] = useState(MOCK_USER.name);
@@ -34,7 +36,7 @@ const Profile = () => {
       return;
     }
     // Temporary: just update local state, no API call yet
-    setUser((prev) => ({ ...prev, name: nameDraft }));
+    // setUser((prev) => ({ ...prev, name: nameDraft }));
     setIsEditing(false);
   };
 

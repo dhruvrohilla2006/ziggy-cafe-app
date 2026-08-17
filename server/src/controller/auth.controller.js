@@ -5,7 +5,6 @@ const User = require('../model/user.model.js');
 const { hashPassword, comparePassword } = require('../utils/Hashing.js');
 const { genToken } = require('../utils/token.js');
 
-
 const LoginController = async (request, response) => {
   const { email, password } = request.body;
 
@@ -99,12 +98,11 @@ const CheckController = async (request, response) => {
     throw new AppError('Token Not Found', 400);
   }
 
+  const UserData = await User.findOne({ _id: token.id });
   response.status(200).json({
     success: true,
     message: 'User Authenticated Successfully',
-    user: {
-      ...token,
-    },
+    user: UserData,
   });
 };
 const LogoutController = async (request, response) => {

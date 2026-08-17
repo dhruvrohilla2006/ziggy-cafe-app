@@ -7,6 +7,7 @@ import {
   Users,
   History,
   Settings,
+  SquareArrowRightExit,
 } from "lucide-react";
 
 const userSidebar = [
@@ -70,6 +71,12 @@ const userSidebar = [
         label: "Profile",
         href: "profile",
         icon: User,
+      },
+      {
+        key: "logout",
+        label: "Logout",
+        href: "/logout",
+        icon: SquareArrowRightExit,
       },
     ],
   },

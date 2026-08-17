@@ -5,6 +5,7 @@ import {
   Hamburger,
   Plus,
   SquarePen,
+  SquareArrowRightExit,
 } from "lucide-react";
 
 const adminSidebar = [
@@ -35,17 +36,18 @@ const adminSidebar = [
         href: "/admin/menu/new",
         icon: Plus,
       },
-      {
-        key: "edit-menu",
-        label: "Update Menu",
-        href: "/admin/menu/update",
-        icon: SquarePen,
-      },
+
       {
         key: "settings",
         label: "Settings",
         href: "/admin/settings",
         icon: Settings,
+      },
+      {
+        key: "logout",
+        label: "Logout",
+        href: "/logout",
+        icon: SquareArrowRightExit,
       },
     ],
   },

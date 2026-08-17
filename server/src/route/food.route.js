@@ -41,7 +41,12 @@ router.get(
   roleValidate(['admin', 'user']),
   getOne
 );
-router.delete('/deleteOne/:id', tokenValidate, roleValidate(['admin']), deleteOne);
+router.delete(
+  '/deleteOne/:id',
+  tokenValidate,
+  roleValidate(['admin']),
+  deleteOne
+);
 
 // Admin Routes
 

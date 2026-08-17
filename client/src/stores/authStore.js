@@ -56,7 +56,7 @@ const authStore = create((set) => ({
       // set({ loading: false, loadingMsg: "Logging Out User" });
     } finally {
       // set({ loading: false, loadingMsg: "Logging Out User" });
-      toast.success("Log Out Succesfuly");
+      toast.success("Logout Succesfuly");
     }
   },
   check: async () => {

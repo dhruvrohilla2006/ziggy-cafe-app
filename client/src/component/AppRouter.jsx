@@ -12,6 +12,10 @@ import AdminLayout from "../layout/AdminLayout";
 import Profile from "../pages/user/Profile";
 import ExploreMenu from "../pages/user/ExploreMenu";
 import CartPage from "../pages/user/Cart";
+import All from "../pages/admin/menu/All";
+import New from "../pages/admin/menu/New";
+import Update from "../pages/admin/menu/Update";
+import Logout from "../pages/Logout";
 
 export default function AppRouter() {
   return (
@@ -24,6 +28,7 @@ export default function AppRouter() {
             <Route path="/register" element={<Register />} />
           </Route>
           <Route path="/404" element={<h1>404 Not Found</h1>} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<Register />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/user" element={<RoleRoute role="user" />}>
@@ -47,9 +52,9 @@ export default function AppRouter() {
             <Route path="/admin" element={<RoleRoute role="admin" />}>
               <Route element={<AdminLayout />}>
                 <Route path="dashboard" element={<AdminDashboard />} />
-                <Route path="menu/new" element={<h1>Upload New Menus</h1>} />
-                <Route path="menu/all" element={<h1>All Menus</h1>} />
-                <Route path="menu/update" element={<h1>Update Menu</h1>} />
+                <Route path="menu/new" element={<New />} />
+                <Route path="menu/all" element={<All />} />
+                <Route path="menu/update/:id" element={<Update />} />
                 <Route path="orders" element={<h1>Orders </h1>} />
                 <Route path="settings" element={<h1>settings</h1>} />
               </Route>

@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Menu,
-  SquareArrowRightExit,
-  User,
-  X,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Menu, User, X } from "lucide-react";
 import clsx from "clsx";
 // import { sidebarConfig } from "../lib/userSidebar";
 import AuthStore from "../stores/authStore";
@@ -18,7 +11,7 @@ export default function Sidebar() {
   const pathnameArray = location.pathname.split("/");
   const pathname = pathnameArray[pathnameArray.length - 1];
   console.log(pathname);
-  const { user, logout } = AuthStore();
+  const { user } = AuthStore();
   const { links } = useSidebarStore();
 
   const [collapsed, setCollapsed] = useState(false);
@@ -113,7 +106,7 @@ export default function Sidebar() {
               })}
             </div>
           ))}
-          <div>
+          {/* <div>
             <span
               onClick={() => logout()}
               className={
@@ -123,7 +116,7 @@ export default function Sidebar() {
               <SquareArrowRightExit color="#880d1e" />
               <span>Logout</span>
             </span>
-          </div>
+          </div> */}
         </nav>
       </aside>
     </>

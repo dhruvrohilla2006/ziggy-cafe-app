@@ -103,9 +103,9 @@ const deleteOne = async (request, response) => {
   // 3. Delete associated images safely
   if (record.images && record.images.length > 0) {
     const deleteResults = await Promise.allSettled(
-      record.images.map((url) => {
+      record.images.map((obj) => {
         // Fallback robust extraction (or preferably use image.public_id if stored)
-        const publicId = url.split('/').pop().split('.')[0];
+        const publicId = obj.public_id;
         return fileDeletion(publicId);
       })
     );

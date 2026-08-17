@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const AuthRoutes = require('./route/auth.route.js');
 const cors = require('cors');
 const FoodRouter = require('./route/food.route.js');
+// const dirname = path.resolve('');
 
 app.use(
   cors({

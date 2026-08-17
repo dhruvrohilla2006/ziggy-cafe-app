@@ -1,5 +1,6 @@
 import useCartStore from "../../stores/cartStore";
 import CartItem from "../../component/CartItem";
+import { ShoppingCart } from "lucide-react";
 
 const CartPage = () => {
   const cart = useCartStore((state) => state.cart);
@@ -13,7 +14,9 @@ const CartPage = () => {
   if (cart.length === 0) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
-        <h2 className="text-2xl font-semibold">Your cart is empty 🛒</h2>
+        <h2 className="text-2xl font-semibold inline-flex items-center gap-2">
+          Your cart is empty <ShoppingCart />
+        </h2>
       </div>
     );
   }
