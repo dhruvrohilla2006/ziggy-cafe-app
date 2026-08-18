@@ -16,6 +16,7 @@ import All from "../pages/admin/menu/All";
 import New from "../pages/admin/menu/New";
 import Update from "../pages/admin/menu/Update";
 import Logout from "../pages/Logout";
+import AdminOrder from "../pages/admin/menu/Order";
 
 export default function AppRouter() {
   return (
@@ -34,10 +35,7 @@ export default function AppRouter() {
             <Route path="/user" element={<RoleRoute role="user" />}>
               <Route element={<UserLayout />}>
                 <Route path="dashboard" element={<UserDashboard />} />
-                <Route
-                  path="order-history"
-                  element={<h1>User Order Histroy</h1>}
-                />
+                <Route path="order-history" element={<h1>Order History</h1>} />
                 <Route path="cart" element={<CartPage />} />
                 <Route path="explore-menu" element={<ExploreMenu />} />
                 <Route path="address" element={<h1>User Address</h1>} />
@@ -55,7 +53,7 @@ export default function AppRouter() {
                 <Route path="menu/new" element={<New />} />
                 <Route path="menu/all" element={<All />} />
                 <Route path="menu/update/:id" element={<Update />} />
-                <Route path="orders" element={<h1>Orders </h1>} />
+                <Route path="orders" element={<AdminOrder />} />
                 <Route path="settings" element={<h1>settings</h1>} />
               </Route>
             </Route>

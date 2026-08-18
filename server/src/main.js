@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const AuthRoutes = require('./route/auth.route.js');
 const cors = require('cors');
 const FoodRouter = require('./route/food.route.js');
+const OrderRouter = require('./route/order.route.js');
 // const dirname = path.resolve('');
 
 app.use(
@@ -23,11 +24,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use('/auth', AuthRoutes);
 app.use('/food', FoodRouter);
+app.use('/order', OrderRouter);
 
 app.get('/', async (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Server Started Successfully',
+  });
+});
+app.get('/health-check', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'This is Health Check Route',
+    tdate: new Date().toISOString(), // or use Date.now() for a numeric timestamp
   });
 });
 

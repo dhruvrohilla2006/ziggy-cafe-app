@@ -14,7 +14,7 @@ const orderSchema = new mongoose.Schema(
     },
     cartItems: [
       {
-        item_id: {
+        itemId: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Food',
           required: true,
