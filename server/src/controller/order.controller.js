@@ -1,4 +1,3 @@
-const { success } = require('zod');
 const Food = require('../model/food.model');
 const Order = require('../model/order.model');
 const AppError = require('../utils/AppError');
@@ -88,7 +87,7 @@ const UpdateOrderStatus = async (request, response) => {
       },
     },
     {
-      new: true,
+      returnDocument: 'after',
       runValidators: true,
     }
   );

@@ -70,10 +70,11 @@ const authStore = create((set) => ({
           user: data.user,
           authenticated: true,
         });
+        toast.success("Login Successful");
       }
     } catch (err) {
       console.error("Found a Error\t", err);
-      // toast.error("Unexpected Error");
+      toast.error("Unexpected Error");
     } finally {
       // toast.success("Login Successful");
     }

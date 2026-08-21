@@ -39,6 +39,16 @@ router.post(
   createOrder
 );
 
+// Update the Status of the order /status/:orderId
+
+router.post(
+  '/status/:id',
+  tokenValidate,
+  roleValidate(['admin']),
+  validate(updateOrderStatusSchema),
+  UpdateOrderStatus
+);
+
 // Cancel the or  der from userSide /status/:orderId/CancelUser
 
 router.get(
@@ -46,15 +56,6 @@ router.get(
   tokenValidate,
   roleValidate(['admin', 'user']),
   CancelOrderUser
-);
-// Update the Status of the order /status/:orderId
-
-router.patch(
-  '/status/:id',
-  tokenValidate,
-  roleValidate(['admin', 'user']),
-  validate(updateOrderStatusSchema),
-  UpdateOrderStatus
 );
 
 module.exports = router;

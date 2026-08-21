@@ -1,11 +1,15 @@
-import useCartStore from "../../stores/cartStore";
-import CartItem from "../../component/CartItem";
+import useCartStore from "@/stores/cartStore";
+import CartItem from "@/component/CartItem";
 import { ShoppingCart } from "lucide-react";
+import orderStore from "@/stores/orderStore";
 
 const CartPage = () => {
+  const ResetCart = useCartStore((state) => state.ResetCart);
   const cart = useCartStore((state) => state.cart);
   const cartCount = useCartStore((state) => state.cartCount);
+  const { checkoutLoading, createOrderUser } = orderStore();
 
+  confirm;
   const subtotal = cart.reduce(
     (total, item) => total + item.price * item.quantity,
     0,
@@ -54,8 +58,11 @@ const CartPage = () => {
             <span>₹{subtotal}</span>
           </div>
 
-          <button className="w-full rounded-lg bg-black py-3 font-semibold text-white">
-            Proceed to Checkout
+          <button
+            onClick={() => createOrderUser(cart).then(ResetCart())}
+            className="w-full rounded-lg bg-black py-3 font-semibold text-white"
+          >
+            {checkoutLoading ? "Proccessing ..." : "Proceed to Checkout"}
           </button>
         </div>
       </div>

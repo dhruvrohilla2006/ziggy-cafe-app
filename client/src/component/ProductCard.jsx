@@ -2,7 +2,7 @@ import { Plus } from "lucide-react";
 
 const ProductCard = ({ image, category, name, price, description, onAdd }) => {
   return (
-    <div className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all duration-300 hover:shadow-lg">
+    <div className="group flex flex-col overflow-hidden rounded-xl border border-slate-400 bg-white transition-all duration-300 hover:shadow-lg">
       <div className="relative aspect-4/3 w-full overflow-hidden">
         <img
           src={image[0]?.url}

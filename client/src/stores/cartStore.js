@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+
 const cartStore = create((set) => ({
   cart: [],
   cartCount: 0,
@@ -74,6 +75,9 @@ const cartStore = create((set) => ({
       };
     });
   },
+  ResetCart:()=>{
+    set({cart:[]})
+  }
 }));
 
 export default cartStore;

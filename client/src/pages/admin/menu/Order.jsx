@@ -109,16 +109,14 @@ const StatusDropdown = ({ status, onChange }) => {
         type="button"
         onClick={handleOpen}
         className={`inline-flex items-center justify-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium capitalize shadow-sm transition focus:outline-none focus:ring-2 focus:ring-gray-200 ${getStatusStyle(
-          status
+          status,
         )}`}
       >
         {formatStatus(status)}
 
         <ChevronDown
           size={14}
-          className={`transition-transform ${
-            open ? "rotate-180" : ""
-          }`}
+          className={`transition-transform ${open ? "rotate-180" : ""}`}
         />
       </button>
 
@@ -142,7 +140,7 @@ const StatusDropdown = ({ status, onChange }) => {
                 >
                   <span
                     className={`mr-2 h-2 w-2 rounded-full ${getStatusDot(
-                      item
+                      item,
                     )}`}
                   />
 
@@ -173,10 +171,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
   if (!order) return null;
 
   const totalItems =
-    order.cartItems?.reduce(
-      (total, item) => total + item.quantity,
-      0
-    ) || 0;
+    order.cartItems?.reduce((total, item) => total + item.quantity, 0) || 0;
 
   return (
     <div
@@ -194,15 +189,13 @@ const OrderDetailsModal = ({ order, onClose }) => {
               Order Details
             </h2>
 
-            <p className="mt-0.5 text-xs text-gray-500">
-              #{order._id}
-            </p>
+            <p className="mt-0.5 text-xs text-gray-500">#{order._id}</p>
           </div>
 
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900"
+            className="rounded-md p-2 border-gray-200 border-2 text-gray-500 hover:bg-red-500 hover:text-white "
           >
             <X size={20} />
           </button>
@@ -233,9 +226,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
               </p>
 
               <p className="mt-1 font-medium text-gray-900">
-                {new Date(
-                  order.createdAt
-                ).toLocaleDateString("en-IN", {
+                {new Date(order.createdAt).toLocaleDateString("en-IN", {
                   day: "2-digit",
                   month: "long",
                   year: "numeric",
@@ -243,9 +234,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
               </p>
 
               <p className="text-sm text-gray-500">
-                {new Date(
-                  order.createdAt
-                ).toLocaleTimeString("en-IN", {
+                {new Date(order.createdAt).toLocaleTimeString("en-IN", {
                   hour: "2-digit",
                   minute: "2-digit",
                 })}
@@ -260,7 +249,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
 
               <span
                 className={`mt-2 inline-flex rounded-md border px-2.5 py-1 text-xs font-medium capitalize ${getStatusStyle(
-                  order.status
+                  order.status,
                 )}`}
               >
                 {formatStatus(order.status)}
@@ -274,8 +263,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
               </p>
 
               <p className="mt-1 font-medium text-gray-900">
-                {totalItems}{" "}
-                {totalItems === 1 ? "item" : "items"}
+                {totalItems} {totalItems === 1 ? "item" : "items"}
               </p>
             </div>
           </div>
@@ -284,9 +272,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
         {/* Ordered Items */}
         <div className="px-6 py-5">
           <div className="mb-3 flex items-center justify-between">
-            <h3 className="font-semibold text-gray-900">
-              Ordered Items
-            </h3>
+            <h3 className="font-semibold text-gray-900">Ordered Items</h3>
 
             <span className="text-sm text-gray-500">
               {order.cartItems?.length || 0} products
@@ -301,9 +287,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
               >
                 {/* Food Information */}
                 <div className="min-w-0">
-                  <p className="font-medium text-gray-900">
-                    {item.name}
-                  </p>
+                  <p className="font-medium text-gray-900">{item.name}</p>
 
                   <p className="mt-1 text-xs text-gray-500">
                     ₹{item.price} × {item.quantity}
@@ -312,10 +296,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
 
                 {/* Subtotal */}
                 <p className="ml-4 whitespace-nowrap font-medium text-gray-900">
-                  ₹
-                  {item.subtotal?.toLocaleString(
-                    "en-IN"
-                  )}
+                  ₹{item.subtotal?.toLocaleString("en-IN")}
                 </p>
               </div>
             ))}
@@ -325,15 +306,10 @@ const OrderDetailsModal = ({ order, onClose }) => {
         {/* Total */}
         <div className="border-t bg-gray-50 px-6 py-5">
           <div className="flex items-center justify-between">
-            <span className="font-medium text-gray-700">
-              Total Amount
-            </span>
+            <span className="font-medium text-gray-700">Total Amount</span>
 
             <span className="text-xl font-semibold text-gray-900">
-              ₹
-              {order.totalCartValue?.toLocaleString(
-                "en-IN"
-              )}
+              ₹{order.totalCartValue?.toLocaleString("en-IN")}
             </span>
           </div>
         </div>
@@ -343,7 +319,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="rounded-md border border-gray-300 text-white bg-red-800 px-4 py-2 text-sm font-medium  hover:bg-red-500"
           >
             Close
           </button>
@@ -358,25 +334,19 @@ const OrderDetailsModal = ({ order, onClose }) => {
 ========================================================= */
 
 const Order = () => {
-  const {
-    orderData,
-    getAllOrderAdmin,
-    updateOrderStatus,
-  } = orderStore();
+  const { orderData, getAllOrderAdmin, changeOrderStatusAdmin } = orderStore();
 
-  const [selectedOrder, setSelectedOrder] =
-    useState(null);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
     getAllOrderAdmin();
   }, [getAllOrderAdmin]);
 
-  const handleStatusChange = async (
-    orderId,
-    newStatus
-  ) => {
+  const handleStatusChange = async (orderId, newStatus) => {
     try {
-      await updateOrderStatus(orderId, newStatus);
+      await changeOrderStatusAdmin(orderId, newStatus);
+
+      getAllOrderAdmin()
 
       // Update the currently opened modal as well
       if (selectedOrder?._id === orderId) {
@@ -386,21 +356,17 @@ const Order = () => {
         }));
       }
     } catch (error) {
-      console.error(
-        "Failed to update order status:",
-        error
-      );
+      console.error("Failed to update order status:", error);
     }
   };
 
   const pendingOrders = orderData.filter(
-    (order) => order.status === "pending"
+    (order) => order.status === "pending",
   ).length;
 
   const totalRevenue = orderData.reduce(
-    (total, order) =>
-      total + (order.totalCartValue || 0),
-    0
+    (total, order) => total + (order.totalCartValue || 0),
+    0,
   );
 
   return (
@@ -408,9 +374,7 @@ const Order = () => {
       <div className="p-6">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-semibold text-gray-900">
-            Orders
-          </h1>
+          <h1 className="text-2xl font-semibold text-gray-900">Orders</h1>
 
           <p className="mt-1 text-sm text-gray-500">
             Manage and track all customer orders.
@@ -420,9 +384,7 @@ const Order = () => {
         {/* Stats */}
         <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div className="rounded-lg border bg-white p-4">
-            <p className="text-sm text-gray-500">
-              Total Orders
-            </p>
+            <p className="text-sm text-gray-500">Total Orders</p>
 
             <p className="mt-1 text-2xl font-semibold text-gray-900">
               {orderData.length}
@@ -430,9 +392,7 @@ const Order = () => {
           </div>
 
           <div className="rounded-lg border bg-white p-4">
-            <p className="text-sm text-gray-500">
-              Pending Orders
-            </p>
+            <p className="text-sm text-gray-500">Pending Orders</p>
 
             <p className="mt-1 text-2xl font-semibold text-yellow-600">
               {pendingOrders}
@@ -440,9 +400,7 @@ const Order = () => {
           </div>
 
           <div className="rounded-lg border bg-white p-4">
-            <p className="text-sm text-gray-500">
-              Total Revenue
-            </p>
+            <p className="text-sm text-gray-500">Total Revenue</p>
 
             <p className="mt-1 text-2xl font-semibold text-green-600">
               ₹{totalRevenue.toLocaleString("en-IN")}
@@ -491,9 +449,8 @@ const Order = () => {
                   orderData.map((order) => {
                     const totalItems =
                       order.cartItems?.reduce(
-                        (total, item) =>
-                          total + item.quantity,
-                        0
+                        (total, item) => total + item.quantity,
+                        0,
                       ) || 0;
 
                     return (
@@ -504,10 +461,7 @@ const Order = () => {
                         {/* Order */}
                         <td className="px-4 py-4">
                           <p className="font-medium text-gray-900">
-                            #
-                            {order._id
-                              .slice(-6)
-                              .toUpperCase()}
+                            #{order._id.slice(-6).toUpperCase()}
                           </p>
 
                           <p className="mt-0.5 text-xs text-gray-400">
@@ -518,56 +472,45 @@ const Order = () => {
                         {/* Customer */}
                         <td className="px-4 py-4">
                           <p className="font-medium text-gray-900">
-                            {order.userDetails?.name ||
-                              "Unknown"}
+                            {order.userDetails?.name || "Unknown"}
                           </p>
 
                           <p className="mt-0.5 text-xs text-gray-500">
-                            {order.userDetails?.email ||
-                              "-"}
+                            {order.userDetails?.email || "-"}
                           </p>
                         </td>
 
                         {/* Items */}
                         <td className="px-4 py-4">
                           <p className="font-medium text-gray-900">
-                            {totalItems}{" "}
-                            {totalItems === 1
-                              ? "item"
-                              : "items"}
+                            {totalItems} {totalItems === 1 ? "item" : "items"}
                           </p>
 
                           <p className="mt-0.5 text-xs text-gray-500">
-                            {order.cartItems?.length ||
-                              0}{" "}
-                            products
+                            {order.cartItems?.length || 0} products
                           </p>
                         </td>
 
                         {/* Date */}
                         <td className="px-4 py-4 whitespace-nowrap">
                           <p className="text-gray-900">
-                            {new Date(
-                              order.createdAt
-                            ).toLocaleDateString(
+                            {new Date(order.createdAt).toLocaleDateString(
                               "en-IN",
                               {
                                 day: "2-digit",
                                 month: "short",
                                 year: "numeric",
-                              }
+                              },
                             )}
                           </p>
 
                           <p className="mt-0.5 text-xs text-gray-500">
-                            {new Date(
-                              order.createdAt
-                            ).toLocaleTimeString(
+                            {new Date(order.createdAt).toLocaleTimeString(
                               "en-IN",
                               {
                                 hour: "2-digit",
                                 minute: "2-digit",
-                              }
+                              },
                             )}
                           </p>
                         </td>
@@ -577,10 +520,7 @@ const Order = () => {
                           <StatusDropdown
                             status={order.status}
                             onChange={(newStatus) =>
-                              handleStatusChange(
-                                order._id,
-                                newStatus
-                              )
+                              handleStatusChange(order._id, newStatus)
                             }
                           />
                         </td>
@@ -588,10 +528,7 @@ const Order = () => {
                         {/* Total */}
                         <td className="px-4 py-4 text-right">
                           <span className="font-semibold text-gray-900">
-                            ₹
-                            {order.totalCartValue?.toLocaleString(
-                              "en-IN"
-                            )}
+                            ₹{order.totalCartValue?.toLocaleString("en-IN")}
                           </span>
                         </td>
 
@@ -600,9 +537,7 @@ const Order = () => {
                           <button
                             type="button"
                             title="View order"
-                            onClick={() =>
-                              setSelectedOrder(order)
-                            }
+                            onClick={() => setSelectedOrder(order)}
                             className="inline-flex items-center justify-center rounded-md border border-gray-200 p-2 text-gray-600 transition hover:bg-gray-100 hover:text-gray-900"
                           >
                             <Eye size={16} />

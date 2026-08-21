@@ -16,7 +16,7 @@ const Layout = () => {
   return (
     <div className="flex min-h-screen max-h-screen overflow-y-hidden">
       <Sidebar />
-      <main className="flex-1 min-w-0 p-1">
+      <main className="flex-1 min-w-0 p-1 ">
         <Outlet />
       </main>
       <FloatingCart count={cartCount} onClick={() => navigator("cart")} />

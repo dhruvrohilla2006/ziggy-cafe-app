@@ -114,7 +114,7 @@ const ExploreMenu = () => {
         ) : (
           <div
             style={{
-              maxHeight: "100vh",
+              maxHeight: "78vh",
               overflowY: "scroll",
               scrollbarWidth: "none",
             }}
