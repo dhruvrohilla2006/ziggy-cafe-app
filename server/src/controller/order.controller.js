@@ -14,9 +14,7 @@ const getAllAdmin = async (request, response) => {
 };
 const getAllUser = async (request, response) => {
   const token = request.token;
-  const result = await Order.find({ userDetails: token.id }).populate(
-    'userDetails'
-  );
+  const result = await Order.find({ userDetails: token.id });
   response.status(200).json({
     success: true,
     message: 'All Order Fetched Successfully',

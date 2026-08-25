@@ -2,7 +2,6 @@ import { create } from "zustand";
 import axiosInstance from "../utils/axios";
 import { toast } from "react-hot-toast";
 
-
 const orderStore = create((set) => ({
   orderData: [],
   checkoutLoading: false,
@@ -75,6 +74,19 @@ const orderStore = create((set) => ({
       toast.error("Something Went Wrong");
     } finally {
       set({ checkoutLoading: false });
+    }
+  },
+  fetchOrder: async () => {
+    try {
+      const { data } = await axiosInstance.get("/order/getAllUser");
+
+      if (data.success) {
+        toast.success(data.message);
+        set({ orderData: data.data });
+        return data.data;
+      }
+    } catch (error) {
+      console.error("Found =>", error.message);
     }
   },
 }));

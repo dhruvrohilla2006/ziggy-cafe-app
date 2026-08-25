@@ -25,7 +25,7 @@ const authStore = create((set) => ({
           authenticated: true,
         });
 
-        // toast.success("Loging Successfull");
+        toast.success("Loging Successfull");
       }
     } catch (err) {
       // set({ loading: false, loadingMsg: "Logging User" });
@@ -70,7 +70,7 @@ const authStore = create((set) => ({
           user: data.user,
           authenticated: true,
         });
-        toast.success("Login Successful");
+        // toast.success("Login Successful");
       }
     } catch (err) {
       console.error("Found a Error\t", err);

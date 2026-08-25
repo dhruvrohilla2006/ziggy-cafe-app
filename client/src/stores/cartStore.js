@@ -1,15 +1,18 @@
+import { toast } from "react-hot-toast";
 import { create } from "zustand";
 
 
 const cartStore = create((set) => ({
   cart: [],
   cartCount: 0,
+  
   AddItemToCart: (food) => {
     console.log(food);
     set((state) => {
       let existingItem = state.cart.find((item) => item._id === food._id);
       if (existingItem) {
         console.log(state);
+        toast.success("Item Added to Cart Successfully")
         return {
           cartCount: state.cartCount + 1,
           cart: state.cart.map((item) => {
@@ -20,6 +23,7 @@ const cartStore = create((set) => ({
         };
       }
       console.log(state);
+      toast.success("Item Added to Cart Successfully")
       return {
         cartCount: state.cartCount + 1,
         cart: [
@@ -75,9 +79,10 @@ const cartStore = create((set) => ({
       };
     });
   },
-  ResetCart:()=>{
-    set({cart:[]})
-  }
+  ResetCart: async () => {
+    set({ cart: [] });
+  },
+  
 }));
 
 export default cartStore;
