@@ -115,7 +115,7 @@ const CancelOrderUser = async (request, response) => {
   }
 
   // User can cancel only until preparing
-  const cancellableStatuses = ['pending', 'accepted', 'preparing'];
+  const cancellableStatuses = ['pending'];
 
   if (!cancellableStatuses.includes(order.status)) {
     throw new AppError(

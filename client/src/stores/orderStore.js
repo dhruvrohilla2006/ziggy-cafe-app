@@ -89,6 +89,20 @@ const orderStore = create((set) => ({
       console.error("Found =>", error.message);
     }
   },
+  cancelOrderUser: async (id) => {
+    try {
+      const { data } = await axiosInstance.get(
+        `/order/status/CancelUser/${id}`,
+      );
+
+      if (data.success) {
+        toast.success(data.message);
+      }
+    } catch (error) {
+      console.error("Found Error ->", error.message);
+      toast.error("Somethings is wrong");
+    }
+  },
 }));
 
 export default orderStore;

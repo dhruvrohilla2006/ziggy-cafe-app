@@ -1,5 +1,12 @@
 import orderStore from "../../stores/orderStore";
-import { CheckCircle2, ChevronDown, Clock, Flame, Receipt } from "lucide-react";
+import {
+  CheckCircle2,
+  ChevronDown,
+  Clock,
+  Flame,
+  Receipt,
+  XCircle,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 
 const STATUS_STYLES = {
@@ -44,9 +51,25 @@ function formatDate(iso) {
 
 function OrderCard({ order }) {
   const [open, setOpen] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
+  const { fetchOrder, cancelOrderUser } = orderStore();
   const status = STATUS_STYLES[order.status] || STATUS_STYLES.pending;
   const StatusIcon = status.icon;
   const itemCount = order.cartItems.reduce((sum, i) => sum + i.quantity, 0);
+
+  const handleCancel = async (e) => {
+    e.stopPropagation(); // don't toggle the accordion
+    if (cancelling) return;
+    setCancelling(true);
+    try {
+      await cancelOrderUser(order._id);
+    } catch (err) {
+      console.error("Failed to cancel order", err);
+    } finally {
+      setCancelling(false);
+      await fetchOrder();
+    }
+  };
 
   return (
     <div className="rounded-2xl border border-stone-200 bg-white shadow-sm overflow-hidden transition-shadow hover:shadow-md">
@@ -119,6 +142,19 @@ function OrderCard({ order }) {
                 Total ₹{order.totalCartValue}
               </span>
             </div>
+
+            {order.status === "pending" && (
+              <div className="mt-3 flex justify-end">
+                <button
+                  onClick={handleCancel}
+                  disabled={cancelling}
+                  className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-rose-600 bg-rose-50 hover:bg-rose-100 ring-1 ring-rose-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <XCircle className="w-4 h-4" strokeWidth={2} />
+                  {cancelling ? "Cancelling…" : "Cancel Order"}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
