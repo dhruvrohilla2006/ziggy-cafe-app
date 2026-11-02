@@ -5,11 +5,11 @@ dotenv.configDotenv();
 
 const envs = {
   PORT: process.env.PORT || 2000,
-  DBRUI: process.env.DBURI || '',
+  DBURI: process.env.DBURI || '',
   JWT: process.env.JWTSECRET,
   CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
   CLOUDINARY_SECRET: process.env.CLOUDINARY_SECRET,
   CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
 };
-
+console.log(envs)
 module.exports = envs;

@@ -7,7 +7,7 @@ const {
   createOrder,
   UpdateOrderStatus,
   CancelOrderUser,
-} = require('../controller/order.controller');
+} = require('../controller/order.controller.js');
 const validate = require('../middleware/validate.middleware');
 const {
   CreateOrder,

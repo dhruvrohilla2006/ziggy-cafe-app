@@ -4,8 +4,8 @@ const env = require('./env.js');
 const process = require('node:process');
 const connectDB = async () => {
   try {
-    await mongoose.connect(env.DBRUI, {
-      dbName: 'restaurant_db',
+    await mongoose.connect(env.DBURI, {
+      dbName: 'mydatabase',
     });
     console.log('DB Connected SuccessFully');
   } catch (error) {

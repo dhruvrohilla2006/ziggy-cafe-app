@@ -19,15 +19,15 @@ export default function NewMenu() {
 
   const handleChange = (e) => {
     if (e.target.name == "category") {
-      setForm((prev) => ({
-        ...prev,
+      setForm({
+        ...form,
         [e.target.name]: e.target.value.toLowerCase(),
-      }));
+      });
     } else {
-      setForm((prev) => ({
-        ...prev,
+      setForm({
+        ...form,
         [e.target.name]: e.target.value,
-      }));
+      });
     }
   };
   const addFiles = (fileList) => {
@@ -42,11 +42,12 @@ export default function NewMenu() {
     ]);
   };
 
-  const handleDrop = useCallback((e) => {
-    e.preventDefault();
-    setDragging(false);
-    addFiles(e.dataTransfer.files);
-  }, []);
+  const handleDrop = (e) => {
+  e.preventDefault();
+  setDragging(false);
+  console.log(e.dataTransfer)
+  addFiles(e.dataTransfer.files);
+};
 
   const removeImage = (index) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
